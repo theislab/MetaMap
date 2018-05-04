@@ -1,0 +1,66 @@
+---
+title: "MetaMap example code"
+author: "Lukas Simon"
+date: "4th May 2018"
+output: html_document
+---
+
+This R code will reduce the MetaMap data to project SRP066090 (Zheng et al.) and run differential metafeature abundance analysis reproducing parts of Figure 2 in the manuscript.
+
+Load R libraries
+```{r warning=FALSE}
+suppressMessages(library(Matrix))
+suppressMessages(library(DESeq2))
+suppressMessages(library(ggrepel))
+suppressMessages(library(ggplot2))
+```
+
+Load the data
+```{r}
+load("MetaMapData.RData")
+```
+
+Restrict data to study SRP066090 
+```{r}
+ok <- which(sample_info$study == 'SRP066090')
+sample_info <- sample_info[ok,]
+meta_count <- meta_count[,ok]
+```
+
+Identify treatment
+```{r}
+treat <- rep("positive", ncol(meta_count))
+treat[grep("Neg", sample_info$sample_attribute)] <- "negative"
+```
+
+Run differential metafeature abundance analysis
+```{r}
+des <- DESeqDataSetFromMatrix(countData = round(meta_count), colData = data.frame(treat = treat), design = ~ treat)
+sizeFactors(des) <- log10(sample_info$spots) / median(log10(sample_info$spots))
+res <- results(DESeq(des), contrast = c('treat', 'positive', 'negative'))
+```
+
+Generate differential expression volcano plot
+```{r}
+tmp <- data.frame(res)
+tmp <- tmp[sort.list(tmp$pvalue),]
+tmp <- tmp[which(!is.na(tmp$log2FoldChange)),]
+speciesNames.zhang <- meta_info[match(rownames(tmp), meta_info[,'TaxID']), 'Species']
+makeVolcano <- function(res, nom){
+  ggplot(tmp, aes(log2FoldChange, -log10(pvalue))) +
+  geom_point(color = rgb(0,0,0,0.5)) +
+  geom_point(data = tmp[1, ], aes(x=log2FoldChange, y=-log10(pvalue)), color="red") +
+  ggtitle(nom) +
+  theme_classic(base_size = 16) +
+  labs(x = "Fold change (log2)", y = "-log10 p-value")
+}
+makeVolcano(res, nom = 'Zhang et al')
+```
+
+Plot Alphapapilloma levels by treatment
+```{r}
+abundance <- t(t(meta_count + 1) / sample_info$spots) * 1e6
+species <- abundance[which(rownames(abundance) == "337041"),] 
+aframe <- data.frame(Alphapapillomavirus.9 = species, treat)
+ggplot(aframe, aes(treat, Alphapapillomavirus.9)) + geom_boxplot() + geom_jitter(width = 0.2) + theme(axis.title.x=element_blank()) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
