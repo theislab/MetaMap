@@ -1,9 +1,3 @@
----
-title: "MetaMap example code"
-author: "Lukas Simon"
-date: "4th May 2018"
-output: html_document
----
 
 This R code will reduce the MetaMap data to project SRP066090 (Zheng et al.) and run differential metafeature abundance analysis reproducing parts of Figure 2 in the manuscript.
 
@@ -17,7 +11,7 @@ suppressMessages(library(ggplot2))
 
 Load the data
 ```{r}
-load("MetaMapData.RData")
+load("data/MetaMapData.RData")
 ```
 
 Restrict data to study SRP066090 
