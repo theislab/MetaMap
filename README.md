@@ -6,6 +6,6 @@ The MetaMap bioinformatic pipeline screens human RNA-seq data for the presence o
 
 1. Detailed information about the MetaMap pipeline and how to execute it on your own data can be found [here](dx.doi.org/10.17504/protocols.io.msec6be).
 
-2. A tutorial describing the statistical analysis of the resulting output can be found in Example_code.Rmd.
+2. An R based tutorial describing the statistical analysis of the resulting output can be found in Tutorial_statistical_analysis.html/Rmd files.
 
 
