@@ -5,7 +5,7 @@ date: "9 Mai 2018"
 output: html_document
 ---
 
-This R code will contains a short tutorial for the statistical analysis of the MetaMap output.
+This R code contains a short tutorial for the statistical analysis of the MetaMap output.
 First, we will reduce the MetaMap dataset to project SRP066090 (Zheng et al.) and run differential metafeature abundance analysis reproducing parts of Figure 2 of the manuscript.
 
 Load R libraries.
