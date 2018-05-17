@@ -55,7 +55,7 @@ makeVolcano <- function(res, nom){
   theme_classic(base_size = 16) +
   labs(x = "Fold change (log2)", y = "-log10 p-value")
 }
-makeVolcano(res, nom = 'Zhang et al')
+makeVolcano(tmp, nom = 'Zhang et al')
 ```
 
 Now, we can plot the HPV levels by treatment.
