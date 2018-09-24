@@ -8,4 +8,4 @@ The MetaMap bioinformatic pipeline screens human RNA-seq data for the presence o
 
 2. An R based tutorial describing the statistical analysis of the resulting output can be found in Tutorial_statistical_analysis.html/Rmd files.
 
-To facilitate interactive exploration of the MetaMap resource we have developed a [webtool (beta version)](https://github.com/theislab/metamap-web) accessible [here](http://146.107.176.18:3838/MetaMap/R/).
+3. To facilitate interactive exploration of the MetaMap resource we have developed a webtool. By clicking on the following link you can access the webtool and agree with our data protection policy (as outlined [here](https://www.helmholtz-muenchen.de/en/imprint/index.html)): **[MetaMap webtool](http://146.107.176.18:3838/MetaMap/R/)**. The code used to create the webtool can be found [here](https://github.com/theislab/metamap-web).
